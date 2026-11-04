@@ -1,0 +1,324 @@
+/*
+ * facet bloom – Steam theme for Millennium, bloom style
+ * Same look as the bloom shell and its other app themes: Rubik, round panels on the
+ * surface tone with gaps in the darkest tone, pills for buttons and what is picked, the
+ * theme's accent. Colors come from colors.css (--fs-*, --fb-*), which `facet theme`
+ * writes from the Material You tones.
+ *
+ * Steam's library uses hashed class names that change with updates, so this file
+ * leans on what stays put: Steam's own design tokens (--gp*, --color-dull-*,
+ * --color-accent-*), element types and the plain class names of dialogs and the
+ * friends/chat window. If something stops matching after a Steam update, open the
+ * DevTools (Millennium settings → developer tools, or steam -dev) and adjust it here.
+ */
+
+/* ── Steam's design tokens ─────────────────────────────────── */
+
+:root {
+  /* System and store greys, darkest to lightest */
+  --gpSystemDarkestGrey: var(--fs-bg) !important;
+  --gpSystemDarkerGrey: var(--fs-surface) !important;
+  --gpSystemDarkGrey: var(--fs-surface2) !important;
+  --gpSystemGrey: var(--fs-frame) !important;
+  --gpSystemLightGrey: var(--fs-muted) !important;
+  --gpSystemLighterGrey: var(--fs-text-dim) !important;
+  --gpSystemLightestGrey: var(--fs-text) !important;
+
+  --gpStoreDarkestGrey: var(--fs-bg) !important;
+  --gpStoreDarkerGrey: var(--fs-surface) !important;
+  --gpStoreDarkGrey: var(--fs-surface2) !important;
+  --gpStoreGrey: var(--fs-frame) !important;
+  --gpStoreLightGrey: var(--fs-muted) !important;
+  --gpStoreLighterGrey: var(--fs-text-dim) !important;
+  --gpStoreLightestGrey: var(--fs-text) !important;
+
+  /* Flat tones instead of Steam's blue gradients */
+  --gpGradient-StoreBackground: var(--fs-bg) !important;
+  --gpGradient-LibraryBackground: var(--fs-bg) !important;
+
+  --gpColor-Blue: var(--fs-primary) !important;
+  --gpColor-BlueHi: var(--fs-primary-hi) !important;
+  --gpColor-ChalkyBlue: var(--fs-secondary) !important;
+  --gpColor-LightBlue: var(--fs-secondary) !important;
+  --gpColor-DustyBlue: var(--fs-frame) !important;
+  --gpColor-Green: var(--fs-ok) !important;
+  --gpColor-GreenHi: var(--fs-ok) !important;
+  --gpColor-Orange: var(--fs-warn) !important;
+  --gpColor-Yellow: var(--fs-warn) !important;
+  --gpColor-Red: var(--fs-danger) !important;
+  --gpColor-RedHi: var(--fs-danger) !important;
+
+  --gpBackground-LightSofter: color-mix(in srgb, var(--fs-text) 6%, transparent) !important;
+  --gpBackground-LightSoft: color-mix(in srgb, var(--fs-text) 10%, transparent) !important;
+  --gpBackground-LightMedium: color-mix(in srgb, var(--fs-text) 14%, transparent) !important;
+  --gpBackground-LightHard: color-mix(in srgb, var(--fs-text) 20%, transparent) !important;
+  --gpBackground-LightHarder: color-mix(in srgb, var(--fs-text) 28%, transparent) !important;
+  --gpBackground-DarkSofter: color-mix(in srgb, var(--fs-bg) 20%, transparent) !important;
+  --gpBackground-DarkSoft: color-mix(in srgb, var(--fs-bg) 40%, transparent) !important;
+  --gpBackground-DarkMedium: color-mix(in srgb, var(--fs-bg) 60%, transparent) !important;
+  --gpBackground-DarkHard: color-mix(in srgb, var(--fs-bg) 80%, transparent) !important;
+  --gpBackground-Neutral-LightSofter: color-mix(in srgb, var(--fs-text) 6%, transparent) !important;
+  --gpBackground-Neutral-LightSoft: color-mix(in srgb, var(--fs-text) 10%, transparent) !important;
+  --gpBackground-Neutral-LightMedium: color-mix(in srgb, var(--fs-text) 14%, transparent) !important;
+  --gpBackground-Neutral-LightHard: color-mix(in srgb, var(--fs-text) 20%, transparent) !important;
+  --gpBackground-Neutral-LightHarder: color-mix(in srgb, var(--fs-text) 28%, transparent) !important;
+
+  /* Round, like bloom's panels and chips */
+  --gpCorner-Small: 8px !important;
+  --gpCorner-Medium: 14px !important;
+  --gpCorner-Large: 18px !important;
+
+  /* No soft shadows: panels stand apart by tone, not by shadow */
+  --gpShadow-Small: none !important;
+  --gpShadow-Medium: none !important;
+  --gpShadow-Large: none !important;
+  --gpShadow-XLarge: none !important;
+
+  --gpText-HeadingLarge: normal 700 26px/1.3 var(--fs-font) !important;
+  --gpText-HeadingMedium: normal 600 20px/1.35 var(--fs-font) !important;
+  --gpText-HeadingSmall: normal 600 16px/1.4 var(--fs-font) !important;
+  --gpText-BodyLarge: normal 400 15px/1.45 var(--fs-font) !important;
+  --gpText-BodyMedium: normal 400 13px/1.45 var(--fs-font) !important;
+  --gpText-BodySmall: normal 400 11px/1.45 var(--fs-font) !important;
+}
+
+/* The newer settings and overlay parts use 12-step scales ("dull" greys and an
+   accent). Steam sets them on elements with data-*-color too, so those get the
+   same values; custom properties with !important win over Steam's own. */
+:root,
+[data-dull-color],
+[data-accent-color] {
+  --color-dull-1: var(--fs-bg) !important;
+  --color-dull-2: var(--fs-surface) !important;
+  --color-dull-3: var(--fs-surface2) !important;
+  --color-dull-4: var(--fb-high) !important;
+  --color-dull-5: var(--fb-highest) !important;
+  --color-dull-6: var(--fs-frame) !important;
+  --color-dull-7: color-mix(in srgb, var(--fs-frame), var(--fs-muted) 50%) !important;
+  --color-dull-8: var(--fs-muted) !important;
+  --color-dull-9: color-mix(in srgb, var(--fs-muted), var(--fs-text-dim) 40%) !important;
+  --color-dull-10: color-mix(in srgb, var(--fs-muted), var(--fs-text-dim) 70%) !important;
+  --color-dull-11: var(--fs-text-dim) !important;
+  --color-dull-12: var(--fs-text) !important;
+
+  --color-accent-1: color-mix(in srgb, var(--fs-bg), var(--fs-primary) 6%) !important;
+  --color-accent-2: color-mix(in srgb, var(--fs-bg), var(--fs-primary) 10%) !important;
+  --color-accent-3: color-mix(in srgb, var(--fs-bg), var(--fs-primary) 16%) !important;
+  --color-accent-4: color-mix(in srgb, var(--fs-bg), var(--fs-primary) 24%) !important;
+  --color-accent-5: color-mix(in srgb, var(--fs-bg), var(--fs-primary) 32%) !important;
+  --color-accent-6: var(--fb-pc) !important;
+  --color-accent-7: color-mix(in srgb, var(--fb-pc), var(--fs-primary) 35%) !important;
+  --color-accent-8: color-mix(in srgb, var(--fb-pc), var(--fs-primary) 70%) !important;
+  --color-accent-9: var(--fs-primary) !important;
+  --color-accent-10: var(--fs-primary-hi) !important;
+  --color-accent-11: var(--fs-primary) !important;
+  --color-accent-12: var(--fs-text) !important;
+}
+
+/* ── Everywhere ────────────────────────────────────────────── */
+
+html,
+body {
+  background-color: var(--fs-bg) !important;
+  color: var(--fs-text-dim);
+}
+
+*,
+*::before,
+*::after {
+  font-family: var(--fs-font) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* Code and console text keeps a monospace font */
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--fb-mono) !important;
+}
+
+::selection {
+  background: var(--fs-primary) !important;
+  color: var(--fb-on-primary) !important;
+}
+
+::-webkit-scrollbar {
+  width: 10px !important;
+  height: 10px !important;
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--fb-high) !important;
+  border: 2px solid transparent !important;
+  background-clip: padding-box !important;
+  border-radius: 999px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fs-frame) !important;
+  background-clip: padding-box !important;
+}
+
+a {
+  color: var(--fs-secondary);
+}
+
+a:hover {
+  color: var(--fs-primary-hi);
+}
+
+/* ── Dialogs, buttons, inputs ──────────────────────────────── */
+
+.DialogContent,
+.ModalDialogPopup,
+.ModalPosition_Content {
+  background: var(--fs-surface) !important;
+  border: none !important;
+  border-radius: 28px !important;
+}
+
+.DialogHeader {
+  color: var(--fs-text) !important;
+  font-weight: 600 !important;
+  text-transform: none;
+}
+
+.DialogBody,
+.DialogBodyText,
+.DialogLabel {
+  color: var(--fs-text-dim) !important;
+}
+
+.DialogFooter {
+  border-top: none !important;
+}
+
+/* Buttons are pills; the primary one is filled with the accent */
+.DialogButton {
+  background: var(--fs-surface2) !important;
+  color: var(--fs-text) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  font-weight: 500 !important;
+  transition: background 0.2s ease;
+}
+
+.DialogButton:hover:not(:disabled),
+.DialogButton.gpfocus,
+.DialogButton:focus-visible {
+  background: var(--fb-high) !important;
+  color: var(--fs-text) !important;
+}
+
+.DialogButton.Primary,
+.DialogButton._DialogLayout.Primary {
+  background: var(--fs-primary) !important;
+  color: var(--fb-on-primary) !important;
+}
+
+.DialogButton.Primary:hover:not(:disabled),
+.DialogButton.Primary.gpfocus {
+  background: var(--fs-primary-hi) !important;
+  color: var(--fb-on-primary) !important;
+}
+
+.DialogButton:disabled,
+.DialogButton.Disabled {
+  background: var(--fs-surface) !important;
+  color: var(--fs-muted) !important;
+}
+
+.DialogInput_Wrapper,
+.DialogTextInputBase,
+.DialogDropDown,
+input[type="text"],
+input[type="search"],
+input[type="password"],
+textarea {
+  background: var(--fs-surface2) !important;
+  color: var(--fs-text) !important;
+  border: none !important;
+  border-radius: 12px !important;
+}
+
+.DialogTextInputBase:focus,
+.DialogDropDown:hover,
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--fs-primary) !important;
+  outline-offset: -2px;
+}
+
+.DialogInputPlaceholder,
+input::placeholder,
+textarea::placeholder {
+  color: var(--fs-muted) !important;
+}
+
+.DialogCheckbox {
+  background: var(--fs-surface2) !important;
+  border: none !important;
+  border-radius: 6px !important;
+}
+
+/* Window title bars sit in the gap tone, so the content below reads as a panel */
+.TitleBar,
+.title-area,
+.titleBarContainer {
+  background: var(--fs-bg) !important;
+  border-bottom: none;
+}
+
+/* Minimize and maximize do nothing under the tiling compositor, so only the close
+   button stays (.closeButton). Same classes in the main window and the friends window. */
+.title-area-icon.minimizeButton,
+.title-area-icon.maximizeButton,
+.title-area-icon.maximizeRestoreButton,
+.title-area-icon.restoreButton {
+  display: none !important;
+}
+
+.title-area-icon.closeButton {
+  border-radius: 999px !important;
+}
+
+/* Tooltips and context menus: round cards one step above the panels */
+[class*="tooltip" i],
+[class*="ContextMenu" i][class*="Popup" i] {
+  background: var(--fs-surface2) !important;
+  color: var(--fs-text) !important;
+  border: none !important;
+  border-radius: 14px !important;
+}
+
+[class*="ContextMenu" i][class*="Popup" i] {
+  padding: 6px !important;
+}
+
+.contextMenuItem {
+  background: transparent !important;
+  color: var(--fs-text) !important;
+  border-radius: 10px !important;
+}
+
+/* The item under the mouse is a pill */
+.contextMenuItem:hover {
+  background: var(--fb-sc) !important;
+  color: var(--fs-text) !important;
+}
+
+/* Progress bars (downloads, updates): round lines in the accent */
+progress,
+[class*="ProgressBar" i] {
+  background: var(--fb-high) !important;
+  border-radius: 999px !important;
+  overflow: hidden;
+}

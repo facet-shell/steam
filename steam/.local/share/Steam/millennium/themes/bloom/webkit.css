@@ -1,0 +1,55 @@
+/* facet bloom – store and community pages inside Steam. These use Steam's --gp* tokens
+   heavily, so the shared rules recolor most of them. */
+@import url("colors.css");
+@import url("bloom.css");
+@import url("generated.css"); /* Steam's own classes recolored, written by frame-steam-css */
+
+/* Big header images keep their art; the page around them is the darkest tone */
+body.v6,
+.responsive_page_frame,
+.page_content_ctn {
+  background: var(--fs-bg) !important;
+}
+
+/* Store buttons as pills: neutral ones on the container tone, buy and install in the accent */
+.btnv6_blue_hoverfade,
+.btn_blue_steamui {
+  background: var(--fs-surface2) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  color: var(--fs-text) !important;
+}
+
+.btn_green_steamui,
+.btn_green_white_innerfade {
+  background: var(--fs-primary) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  color: var(--fb-on-primary) !important;
+}
+
+.btnv6_blue_hoverfade:hover,
+.btn_blue_steamui:hover {
+  background: var(--fb-high) !important;
+}
+
+.btn_green_steamui:hover,
+.btn_green_white_innerfade:hover {
+  background: var(--fs-primary-hi) !important;
+}
+
+.btn_green_steamui > span,
+.btn_blue_steamui > span,
+.btnv6_blue_hoverfade > span,
+.btn_green_white_innerfade > span {
+  background: transparent !important;
+  color: inherit !important;
+  border-radius: 999px !important;
+}
+
+/* Capsule art and store boxes get bloom's round corners */
+.store_capsule,
+.tab_item {
+  border-radius: 14px !important;
+  overflow: hidden;
+}

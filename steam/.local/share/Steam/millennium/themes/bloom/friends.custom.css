@@ -1,0 +1,165 @@
+/* facet bloom – friends list and chat windows. The friends UI keeps plain class names,
+   so it can follow bloom's panels and pills more closely than the library. */
+@import url("colors.css");
+@import url("bloom.css");
+@import url("generated.css"); /* Steam's own classes recolored, written by frame-steam-css */
+
+.friendsui-container,
+.friendlist,
+.FriendsListContent,
+.multiChatDialog {
+  background: var(--fs-bg) !important;
+}
+
+.chatWindow,
+.ChatTabContent,
+.chatBody,
+.ChatHistoryContainer {
+  background: var(--fs-surface) !important;
+}
+
+/* Header with your own name and the search */
+.friendListHeaderContainer {
+  background: var(--fs-bg) !important;
+  border-bottom: none !important;
+}
+
+.friendSearchInput {
+  background: var(--fs-surface2) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  color: var(--fs-text) !important;
+}
+
+/* Group headers as small caps labels, like bloom's section headers */
+.friendGroup .groupHeaderContainer,
+.friendsListSectionTitle,
+.chatSectionTitle {
+  color: var(--fs-text-dim) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  background: transparent !important;
+}
+
+/* Friends: rows are pills when the mouse is on them */
+.friend {
+  background: transparent !important;
+  border-radius: 14px !important;
+  transition: background 0.2s ease;
+}
+
+.friend:hover,
+.friend.friendStatusHover {
+  background: var(--fb-sc) !important;
+}
+
+.friend.online .playerName,
+.onlineFriends .playerName {
+  color: var(--fs-text) !important;
+}
+
+.friend.ingame .playerName,
+.friend.ingame .richPresenceContainer {
+  color: var(--fs-ok) !important;
+}
+
+.friend.offline .playerName,
+.offlineFriends .playerName {
+  color: var(--fs-muted) !important;
+}
+
+/* Chat tabs: pills, the open one filled */
+.ChatTabs,
+.chatTabSetContainer {
+  background: var(--fs-bg) !important;
+  border-bottom: none !important;
+}
+
+.chatTab {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: var(--fs-text-dim) !important;
+}
+
+.chatTab:hover {
+  background: color-mix(in srgb, var(--fs-text) 8%, transparent) !important;
+  color: var(--fs-text) !important;
+}
+
+.chatTab.Active,
+.chatTab.active {
+  background: var(--fb-sc) !important;
+  color: var(--fs-text) !important;
+}
+
+/* Unread counters as round badges in the accent */
+.ChatUnreadMessageIndicator,
+.chatUnreadCircle,
+.FriendMessageCount {
+  background: var(--fs-primary) !important;
+  color: var(--fb-on-primary) !important;
+  border-radius: 999px !important;
+}
+
+/* Messages */
+.ChatMessageBlock .speakerName,
+.chatEntry .speakerName {
+  color: var(--fs-primary) !important;
+  font-weight: 600 !important;
+}
+
+.FriendChatTimeStamp {
+  color: var(--fs-muted) !important;
+}
+
+.ChatMessageBlock .msgText {
+  color: var(--fs-text) !important;
+}
+
+.ChatMessageInvite {
+  background: var(--fs-surface2) !important;
+  border: none !important;
+  border-radius: 18px !important;
+}
+
+/* The text box at the bottom: a pill on the container tone */
+.chatEntry,
+.socialInputContainer {
+  background: var(--fs-surface) !important;
+  border-top: none !important;
+  color: var(--fs-text) !important;
+}
+
+.chatEntry .chatTextarea,
+.chatEntry textarea {
+  background: var(--fs-surface2) !important;
+  border-radius: 22px !important;
+}
+
+/* Group chats: channel list and members as panels on the surface tone */
+.chatRoomGroupNavColumn,
+.chatRoomMembers {
+  background: var(--fs-surface) !important;
+  border-right: none !important;
+}
+
+.chatRoomTextChannel,
+.chatRoomVoiceChannel {
+  color: var(--fs-text-dim) !important;
+  border-radius: 12px !important;
+}
+
+.chatRoomTextChannel:hover,
+.chatRoomVoiceChannel:hover {
+  background: color-mix(in srgb, var(--fs-text) 8%, transparent) !important;
+  color: var(--fs-text) !important;
+}
+
+.chatRoomTextChannel.activeChannel,
+.chatRoomVoiceChannel.activeVoiceChannel {
+  background: var(--fb-sc) !important;
+  color: var(--fs-text) !important;
+}
