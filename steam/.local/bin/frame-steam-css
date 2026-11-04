@@ -27,7 +27,19 @@ from collections import defaultdict
 
 HOME = os.path.expanduser("~")
 STEAM_UI = os.path.join(HOME, ".local/share/Steam/steamui/css")
-THEME = os.path.join(HOME, ".local/share/Steam/millennium/themes/Frameshell")
+STATE = os.path.join(os.environ.get("XDG_STATE_HOME") or os.path.join(HOME, ".local/state"), "frameshell")
+
+
+def style():
+    # The style in use (facet style); its Millennium theme folder is named after it
+    try:
+        with open(os.path.join(STATE, "style")) as f:
+            return f.read().strip() or "tui"
+    except OSError:
+        return "tui"
+
+
+THEME = os.path.join(HOME, ".local/share/Steam/millennium/themes", style())
 OUT = os.path.join(THEME, "generated.css")
 SOURCES = ["sp.css", "library.css", "chunk~1a96cdf59.css", "discoveryqueue.css", "gamerecording.css"]
 
