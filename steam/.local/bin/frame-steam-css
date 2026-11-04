@@ -14,7 +14,7 @@ greens, oranges and reds go to the matching accent, every other saturated color 
 labels, game art tints) is left alone, and so are translucent overlays and fades over art.
 
 The result goes to generated.css next to the theme, imported by libraryroot.custom.css,
-webkit.css and friends.custom.css. `frame theme` and `frame update steam` run it; run it by
+webkit.css and friends.custom.css. `facet theme` and `facet update steam` run it; run it by
 hand after a Steam update if the library lost its colors, then restart Steam.
 
     frame-steam-css            write generated.css

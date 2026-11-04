@@ -1,7 +1,7 @@
 {
   "name": "Frameshell",
   "author": "vxnsin",
-  "description": "frameshell for Steam: one monospace font, square corners, thin frames, colors from frame theme.",
+  "description": "frameshell for Steam: one monospace font, square corners, thin frames, colors from facet theme.",
   "version": "1.0.0",
   "tags": ["Minimal", "Dark", "Monospace"],
   "github": {

@@ -2,7 +2,7 @@
  * frameshell – Steam theme for Millennium, TUI style
  * Same look as the Spotify and Vesktop themes: one monospace font, square corners,
  * panels drawn as 1px frames instead of shadows and gradients. Colors come from
- * colors.css (--fs-*), which `frame theme` writes for the active theme.
+ * colors.css (--fs-*), which `facet theme` writes for the active theme.
  *
  * Steam's library uses hashed class names that change with updates, so this file
  * leans on what stays put: Steam's own design tokens (--gp*, --color-dull-*,
