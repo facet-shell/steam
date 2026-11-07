@@ -12,7 +12,7 @@
   --fs-text: {{colors.text}};
   --fs-text-dim: {{colors.textDim}};
   --fs-muted: {{colors.muted}};
-  --fs-facet: {{colors.frame}};
+  --fs-frame: {{colors.frame}};
   --fs-danger: {{colors.danger}};
   --fs-warn: {{colors.warn}};
   --fs-ok: {{colors.ok}};

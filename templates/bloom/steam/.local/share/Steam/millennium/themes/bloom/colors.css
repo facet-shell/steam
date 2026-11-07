@@ -14,7 +14,7 @@
   --fs-text: {{tones.text}};
   --fs-text-dim: {{tones.dim}};
   --fs-muted: {{tones.dim|mix:tones.outline:45}};
-  --fs-facet: {{tones.outline}};
+  --fs-frame: {{tones.outline}};
   --fs-danger: {{tones.error}};
   --fs-warn: {{colors.warn}};
   --fs-ok: {{tones.ok}};
