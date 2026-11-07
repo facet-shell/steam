@@ -141,8 +141,16 @@ def convert(prop, value, kind):
         return None
     if kind == "bg":
         if "gradient" in value:
-            # A flat surface instead of Steam's gradient, picked from its darkest mapped stop;
-            # gradients made only of fades (translucent stops) stay, they sit over art
+            # Fades often sit over game artwork. Flattening one to an opaque color
+            # hides the image, even if the gradient also contains an opaque stop.
+            alpha_hex = re.findall(r"#([0-9a-fA-F]{8}|[0-9a-fA-F]{4})\b", value)
+            if ("transparent" in value.lower() or any(
+                m.group(4) is not None and float(m.group(4)) < 1
+                for m in RGB.finditer(value)
+            ) or any((h[-2:] if len(h) == 8 else h[-1]) not in ("ff", "FF", "f", "F")
+                     for h in alpha_hex)):
+                return None
+            # Recolor opaque gradients as flat themed surfaces.
             mapped = [(luminance(h), var_for(h, "bg")) for h in hexes if var_for(h, "bg")]
             if not mapped:
                 return None
@@ -151,9 +159,8 @@ def convert(prop, value, kind):
         var = var_for(hexes[0], "bg")
         if not var:
             return None
-        if prop == "background-color" or "url(" in value:
-            return f"background-color:var({var})!important"
-        return f"background:var({var})!important"
+        # A background shorthand would also reset an image set dynamically by Steam.
+        return f"background-color:var({var})!important"
     if kind == "fg":
         var = var_for(hexes[0], "fg")
         return f"{prop}:var({var})!important" if var else None
