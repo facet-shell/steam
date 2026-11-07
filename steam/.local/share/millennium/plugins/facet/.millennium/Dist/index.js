@@ -1,5 +1,5 @@
 /*
- * frameshell bridge, frontend side. Millennium loads this into Steam's SharedJSContext,
+ * facet bridge, frontend side. Millennium loads this into Steam's SharedJSContext,
  * where Steam's NotificationStore decides which toasts to show. While the shell is
  * connected, the notifications below go to the shell (over backend/main.lua and the
  * Unix socket) and Steam's own toast is skipped; the tray (bell) in Steam keeps them.
@@ -9,7 +9,7 @@
  * current Steam it is a bound, frozen own property of the store. So the store's
  * BShowToast(…notification…) on the prototype is wrapped instead: it answers "no toast"
  * for what went to the shell. Everything this file logs also lands in Steam's
- * console-linux.txt through the backend (bridge_log), prefixed "frameshell:".
+ * console-linux.txt through the backend (bridge_log), prefixed "facet:".
  *
  * Hand-written in the shape Millennium's build tool emits (window.PLUGIN_LIST, default
  * export, backend IPC message 1), so there is no build step. Steam's internals are
@@ -17,7 +17,7 @@
  * only turns forwarding off, never Steam's own toasts.
  */
 (function () {
-    const pluginName = "frameshell";
+    const pluginName = "facet";
     const VERSION = "1.0.0";
     (window.PLUGIN_LIST ||= {})[pluginName] ||= {};
 
@@ -38,7 +38,7 @@
     const seen = new Set();
 
     const log = (...args) => {
-        console.log("%c frameshell ", "background:#5d6fe8;color:#fff", ...args);
+        console.log("%c facet ", "background:#5d6fe8;color:#fff", ...args);
         try {
             backend("bridge_log", args.map(a => (a instanceof Error ? `${a.message} ${a.stack ?? ""}` : typeof a === "string" ? a : JSON.stringify(a))).join(" ")).catch(() => { });
         } catch { }
@@ -197,10 +197,10 @@
         const d = Object.getOwnPropertyDescriptor(owner, name);
         if (typeof d.value !== "function")
             return false;
-        if (d.value.__frameshell)
+        if (d.value.__facet)
             return true;
         const wrapped = wrap(d.value);
-        wrapped.__frameshell = true;
+        wrapped.__facet = true;
         try {
             if (d.writable) owner[name] = wrapped;
             else if (d.configurable) Object.defineProperty(owner, name, { value: wrapped, writable: true, configurable: true });
@@ -401,7 +401,7 @@
         try {
             await window.MILLENNIUM_BACKEND_IPC?.postMessage(1, { pluginName });
         } catch (e) {
-            console.log("frameshell: frontend-loaded message failed", e);
+            console.log("facet: frontend-loaded message failed", e);
         }
         try {
             await main();

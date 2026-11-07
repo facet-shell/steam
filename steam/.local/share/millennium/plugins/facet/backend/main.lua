@@ -1,5 +1,5 @@
 --[[
-  frameshell bridge, backend side. Millennium runs plugin backends in LuaJIT, which has
+  facet bridge, backend side. Millennium runs plugin backends in LuaJIT, which has
   no socket library of its own, so the Unix socket of the shell
   ($XDG_RUNTIME_DIR/qs-steam.sock, see quickshell/.config/quickshell/services/SteamBridge.qml)
   is opened through LuaJIT's ffi and libc. Everything is non-blocking: the frontend calls
@@ -13,9 +13,9 @@ local logger = require("logger")
 local millennium = require("millennium")
 
 ffi.cdef [[
-struct frameshell_sockaddr_un { unsigned short sun_family; char sun_path[108]; };
+struct facet_sockaddr_un { unsigned short sun_family; char sun_path[108]; };
 int socket(int domain, int type, int protocol);
-int connect(int fd, const struct frameshell_sockaddr_un *addr, unsigned int len);
+int connect(int fd, const struct facet_sockaddr_un *addr, unsigned int len);
 long send(int fd, const char *buf, unsigned long len, int flags);
 long recv(int fd, char *buf, unsigned long len, int flags);
 int close(int fd);
@@ -43,7 +43,7 @@ local read_buffer = ffi.new("char[?]", 4096)
 local function disconnect()
     if fd >= 0 then
         ffi.C.close(fd)
-        logger:info("frameshell: shell disconnected")
+        logger:info("facet: shell disconnected")
     end
     fd = -1
     inbox = ""
@@ -63,7 +63,7 @@ local function try_connect()
     if s < 0 then
         return
     end
-    local addr = ffi.new("struct frameshell_sockaddr_un")
+    local addr = ffi.new("struct facet_sockaddr_un")
     addr.sun_family = AF_UNIX
     ffi.copy(addr.sun_path, socket_path)
     -- A local connect answers at once: there is a listener or there is not
@@ -72,7 +72,7 @@ local function try_connect()
         return
     end
     fd = s
-    logger:info("frameshell: connected to " .. socket_path)
+    logger:info("facet: connected to " .. socket_path)
 end
 
 -- Writes as much of the outbox as the socket takes right now
@@ -140,7 +140,7 @@ end
 -- what the frontend does is visible without the SharedJSContext console
 function bridge_log(line)
     if type(line) == "string" then
-        logger:info("frameshell: " .. line:sub(1, 400))
+        logger:info("facet: " .. line:sub(1, 400))
     end
     return true
 end
@@ -154,7 +154,7 @@ function bridge_poll()
 end
 
 local function on_load()
-    logger:info("frameshell: bridge to " .. socket_path)
+    logger:info("facet: bridge to " .. socket_path)
     millennium.ready()
 end
 

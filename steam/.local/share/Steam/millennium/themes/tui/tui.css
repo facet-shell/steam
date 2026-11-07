@@ -1,5 +1,5 @@
 /*
- * frameshell – Steam theme for Millennium, TUI style
+ * facet – Steam theme for Millennium, TUI style
  * Same look as the Spotify and Vesktop themes: one monospace font, square corners,
  * panels drawn as 1px frames instead of shadows and gradients. Colors come from
  * colors.css (--fs-*), which `facet theme` writes for the active theme.

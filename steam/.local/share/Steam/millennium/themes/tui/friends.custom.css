@@ -1,8 +1,8 @@
-/* frameshell – friends list and chat windows. The friends UI keeps plain class names,
+/* facet – friends list and chat windows. The friends UI keeps plain class names,
    so it can be drawn closer to the terminal look than the library. */
 @import url("colors.css");
 @import url("tui.css");
-@import url("generated.css"); /* Steam's own classes recolored, written by frame-steam-css */
+@import url("generated.css"); /* Steam's own classes recolored, written by facet-steam-css */
 
 .friendsui-container,
 .friendlist,

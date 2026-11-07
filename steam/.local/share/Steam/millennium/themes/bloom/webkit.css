@@ -2,7 +2,7 @@
    heavily, so the shared rules recolor most of them. */
 @import url("colors.css");
 @import url("bloom.css");
-@import url("generated.css"); /* Steam's own classes recolored, written by frame-steam-css */
+@import url("generated.css"); /* Steam's own classes recolored, written by facet-steam-css */
 
 /* Big header images keep their art; the page around them is the darkest tone */
 body.v6,

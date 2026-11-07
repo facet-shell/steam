@@ -1,6 +1,6 @@
 # Written by `facet theme` from templates/ for the active style and theme; edit the
 # template instead. Kept out of git so switching themes is never a change in the repo.
 /steam/.local/share/Steam/millennium/themes/*/colors.css
-# Written by frame-steam-css (facet theme, facet update steam) into the style's theme folder,
+# Written by facet-steam-css (facet theme, facet update steam) into the style's theme folder,
 # which Steam reaches through a link into this repo
 /steam/.local/share/Steam/millennium/themes/*/generated.css
