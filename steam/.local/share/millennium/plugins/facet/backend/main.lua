@@ -1,7 +1,8 @@
 --[[
   facet bridge, backend side. Millennium runs plugin backends in LuaJIT, which has
   no socket library of its own, so the Unix socket of the shell
-  ($XDG_RUNTIME_DIR/qs-steam.sock, see quickshell/.config/quickshell/services/SteamBridge.qml)
+  ($XDG_CACHE_HOME/facet/steam.sock, not in XDG_RUNTIME_DIR: the 64-bit client runs this
+  backend inside pressure-vessel, which does not see that directory; see quickshell/.config/quickshell/services/SteamBridge.qml)
   is opened through LuaJIT's ffi and libc. Everything is non-blocking: the frontend calls
   bridge_poll every half second, which (re)connects, reads the shell's commands and
   writes what is still pending. bridge_send queues one JSON line for the shell.
@@ -33,7 +34,11 @@ local EINTR = 4
 local RETRY_SECONDS = 3
 local MAX_PENDING = 256 * 1024
 
-local socket_path = (os.getenv("XDG_RUNTIME_DIR") or "/tmp") .. "/qs-steam.sock"
+local cache_home = os.getenv("XDG_CACHE_HOME")
+if not cache_home or cache_home == "" then
+    cache_home = (os.getenv("HOME") or "") .. "/.cache"
+end
+local socket_path = cache_home .. "/facet/steam.sock"
 local fd = -1
 local inbox = ""
 local outbox = ""
